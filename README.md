@@ -101,5 +101,5 @@ Le projet inclut des tests unitaires (xUnit + base de données EF Core InMemory)
 
 ## Auteure
 
-**Sabine Ismail** — développeuse back-end C#/.NET, assistante/technicienne qualité en agroalimentaire.
+**Sabine Ismail** 
 [GitHub](https://github.com/sabine05) · [LinkedIn](https://linkedin.com/in/sabine-ismail34874)
