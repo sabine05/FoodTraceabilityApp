@@ -1,0 +1,150 @@
+:root {
+    --primary: #2e7d32;
+    --primary-dark: #1b5e20;
+    --bg: #f5f7f5;
+    --card-bg: #ffffff;
+    --border: #e0e0e0;
+    --text: #222;
+    --muted: #666;
+    --danger: #c62828;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0 0 60px;
+  }
+  header {
+    background: var(--primary-dark);
+    color: white;
+    padding: 24px 32px;
+  }
+  header h1 { margin: 0; font-size: 1.5rem; }
+  header p { margin: 4px 0 0; opacity: 0.85; font-size: 0.9rem; }
+
+  .config {
+    max-width: 1000px;
+    margin: 16px auto 0;
+    padding: 0 24px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .config input {
+    flex: 1;
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.85rem;
+  }
+  .config button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 6px;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+    font-size: 0.85rem;
+  }
+
+  nav {
+    max-width: 1000px;
+    margin: 20px auto 0;
+    padding: 0 24px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  nav button {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    background: white;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+  nav button.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+
+  main {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 24px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .card h2 { margin-top: 0; font-size: 1.1rem; }
+
+  form.inline-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  form.inline-form input, form.inline-form select {
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+  form.inline-form button {
+    grid-column: 1 / -1;
+    padding: 10px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  form.inline-form button:hover { background: var(--primary-dark); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  th { color: var(--muted); font-weight: 600; }
+  tr:hover { background: #fafafa; }
+
+  .actions button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--danger);
+    font-size: 0.85rem;
+  }
+
+  .msg {
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+    font-size: 0.88rem;
+    display: none;
+  }
+  .msg.error { background: #fdecea; color: var(--danger); display: block; }
+  .msg.success { background: #e8f5e9; color: var(--primary-dark); display: block; }
+
+  .empty { color: var(--muted); font-style: italic; padding: 10px 0; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }

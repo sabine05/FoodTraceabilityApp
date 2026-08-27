@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FoodTraceabilityApp — Interface</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>🥗 FoodTraceabilityApp</h1>
+  <p>Interface de gestion — traçabilité agroalimentaire</p>
+</header>
+
+<div class="config">
+  <label for="apiBase">URL de l'API :</label>
+  <input type="text" id="apiBase" value="http://localhost:5029/api">
+  <button onclick="saveApiBase()">Enregistrer</button>
+</div>
+
+<nav>
+  <button class="tab-btn active" data-tab="finishedProducts">Produits finis</button>
+  <button class="tab-btn" data-tab="rawMaterials">Matières premières</button>
+  <button class="tab-btn" data-tab="suppliers">Fournisseurs</button>
+  <button class="tab-btn" data-tab="traceabilityLinks">Liens de traçabilité</button>
+</nav>
+
+<main>
+  <div id="globalMsg" class="msg"></div>
+
+  <!-- FINISHED PRODUCTS -->
+  <section id="finishedProducts" class="tab-panel active">
+    <div class="card">
+      <h2>Ajouter un produit fini</h2>
+      <form class="inline-form" onsubmit="return createFinishedProduct(event)">
+        <input type="text" id="fp-name" placeholder="Nom (ex: Salade composée)" required>
+        <input type="text" id="fp-batch" placeholder="N° de lot interne" required>
+        <input type="date" id="fp-date" required>
+        <input type="number" id="fp-qty" placeholder="Quantité" required min="0">
+        <button type="submit">Ajouter</button>
+      </form>
+    </div>
+    <div class="card">
+      <h2>Liste des produits finis</h2>
+      <div id="fp-list"></div>
+    </div>
+  </section>
+
+  <!-- RAW MATERIALS -->
+  <section id="rawMaterials" class="tab-panel">
+    <div class="card">
+      <h2>Ajouter une matière première</h2>
+      <form class="inline-form" onsubmit="return createRawMaterial(event)">
+        <input type="text" id="rm-name" placeholder="Nom (ex: Tomate)" required>
+        <input type="text" id="rm-batch" placeholder="N° de lot" required>
+        <input type="date" id="rm-reception" required>
+        <input type="date" id="rm-expiry" required>
+        <select id="rm-status">
+          <option value="Disponible">Disponible</option>
+          <option value="Épuisé">Épuisé</option>
+          <option value="Bloqué">Bloqué</option>
+        </select>
+        <input type="number" id="rm-supplier" placeholder="ID fournisseur" required min="1">
+        <button type="submit">Ajouter</button>
+      </form>
+    </div>
+    <div class="card">
+      <h2>Liste des matières premières</h2>
+      <div id="rm-list"></div>
+    </div>
+  </section>
+
+  <!-- SUPPLIERS -->
+  <section id="suppliers" class="tab-panel">
+    <div class="card">
+      <h2>Ajouter un fournisseur</h2>
+      <form class="inline-form" onsubmit="return createSupplier(event)">
+        <input type="text" id="sp-name" placeholder="Nom du fournisseur" required>
+        <input type="email" id="sp-email" placeholder="Email de contact" required>
+        <input type="number" id="sp-phone" placeholder="Téléphone" required>
+        <input type="text" id="sp-address" placeholder="Adresse" required>
+        <button type="submit">Ajouter</button>
+      </form>
+    </div>
+    <div class="card">
+      <h2>Liste des fournisseurs</h2>
+      <div id="sp-list"></div>
+    </div>
+  </section>
+
+  <!-- TRACEABILITY LINKS -->
+  <section id="traceabilityLinks" class="tab-panel">
+    <div class="card">
+      <h2>Créer un lien de traçabilité</h2>
+      <form class="inline-form" onsubmit="return createLink(event)">
+        <input type="number" id="tl-fp" placeholder="ID produit fini" required min="1">
+        <input type="number" id="tl-rm" placeholder="ID matière première" required min="1">
+        <input type="number" id="tl-qty" placeholder="Quantité utilisée" required min="0" step="any">
+        <button type="submit">Créer le lien</button>
+      </form>
+    </div>
+    <div class="card">
+      <h2>Rechercher les matières premières d'un produit fini</h2>
+      <form class="inline-form" onsubmit="return searchByFinishedProduct(event)">
+        <input type="number" id="search-fp" placeholder="ID produit fini" required min="1">
+        <button type="submit">Rechercher</button>
+      </form>
+      <div id="tl-search-result"></div>
+    </div>
+    <div class="card">
+      <h2>Tous les liens de traçabilité</h2>
+      <div id="tl-list"></div>
+    </div>
+  </section>
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>
