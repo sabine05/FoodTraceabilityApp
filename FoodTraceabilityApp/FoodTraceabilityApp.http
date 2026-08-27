@@ -1,0 +1,6 @@
+@FoodTraceabilityApp_HostAddress = http://localhost:5029
+
+GET {{FoodTraceabilityApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
