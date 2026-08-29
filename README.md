@@ -1,4 +1,4 @@
-# 🥗 FoodTraceabilityApp
+# FoodTraceabilityApp
 
 Application de traçabilité pour l'industrie agroalimentaire, développée en **C# / ASP.NET Core**. Elle permet de suivre le lien entre les matières premières reçues des fournisseurs et les produits finis fabriqués, afin de pouvoir retrouver rapidement l'origine d'un lot en cas de besoin (non conformité,rappel produit, contrôle qualité, audit).
 
