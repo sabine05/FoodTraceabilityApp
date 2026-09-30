@@ -30,6 +30,9 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
+app.UseMiddleware<FoodTraceabilityApp.Middleware.ExceptionMiddleware>(); 
+
+
 app.MapControllers();
 
 

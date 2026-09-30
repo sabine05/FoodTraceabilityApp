@@ -41,7 +41,7 @@ if (supplier == null)
 }
 
  [HttpGet("{id}")]
-    public async Task<ActionResult<RawMaterial>> GetRawMaterial(int id)
+    public async Task<ActionResult<RawMaterial>> GetRawMaterial(int id)// Déclaration de la méthode GetRawMaterial qui prend en paramètre un identifiant d'une matière première et retourne un ActionResult contenant l'objet RawMaterial correspondant.
     {
     var rawMaterial = await _context.RawMaterials.FindAsync(id);
 

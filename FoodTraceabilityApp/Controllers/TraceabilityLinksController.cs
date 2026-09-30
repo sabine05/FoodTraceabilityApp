@@ -11,33 +11,37 @@ public class TraceabilityLinksController : ControllerBase // Déclaration de la 
 {
     private readonly AppDbContext _context; // Déclaration d'une variable privée _context de type AppDbContext pour accéder à la base de données.
 
-    public TraceabilityLinksController(AppDbContext context) // Constructeur de la classe TraceabilityLinksController qui prend en paramètre un objet AppDbContext pour initialiser la variable _context.
+    private readonly ILogger<TraceabilityLinksController> _logger; // Déclaration d'une variable privée _logger de type ILogger<TraceabilityLinksController> pour enregistrer les informations de journalisation.
+
+    public TraceabilityLinksController(AppDbContext context, ILogger<TraceabilityLinksController> logger) // Constructeur de la classe TraceabilityLinksController qui prend en paramètre un objet AppDbContext pour initialiser la variable _context.
     {
         _context = context;  // Initialisation de la variable _context avec l'objet context passé en paramètre.
+        _logger = logger; // Initialisation de la variable _logger avec l'objet logger passé en paramètre.
     }
 
 
 [HttpPost] //swagger endpoint: POST /api/TraceabilityLinks
 public async Task<ActionResult<TraceabilityLink>> CreateTraceabilityLink(TraceabilityLink traceabilityLink)// Déclaration de la méthode CreateTraceabilityLink qui prend en paramètre un objet TraceabilityLink et retourne un ActionResult de type TraceabilityLink.
 {
-    var rawMaterial = await _context.RawMaterials
-        .FindAsync(traceabilityLink.RawMaterialId);
+    var rawMaterial = await _context.RawMaterials.FindAsync(traceabilityLink.RawMaterialId);
 
-    var finishedProduct = await _context.FinishedProducts
-        .FindAsync(traceabilityLink.FinishedProductId);
+    var finishedProduct = await _context.FinishedProducts.FindAsync(traceabilityLink.FinishedProductId);
 
     if (rawMaterial == null)
     {
+        _logger.LogWarning("Tentative de création d'un lien avec une matière première inexistante (ID {Id})", traceabilityLink.RawMaterialId);
         return BadRequest("La matière première n'existe pas.");
     }
 
     if (finishedProduct == null)
     {
+        _logger.LogWarning("Tentative de création d'un lien avec un produit fini inexistants (ID {Id})", traceabilityLink.FinishedProductId);
         return BadRequest("Le produit fini n'existe pas.");
     }
 
     if (traceabilityLink.QuantityUsed <= 0)
     {
+        _logger.LogWarning("Tentative de création d'un lien avec une quantité utilisée non valide (ID {Id})", traceabilityLink.Id);
         return BadRequest("La quantité utilisée doit être supérieure à 0.");
     }
 
@@ -53,16 +57,16 @@ public async Task<ActionResult<TraceabilityLink>> CreateTraceabilityLink(Traceab
     _context.TraceabilityLinks.Add(traceabilityLink);
     await _context.SaveChangesAsync();
 
-    return Ok(traceabilityLink);
+    return Ok(traceabilityLink);// Retourne un code HTTP 200 avec l'objet TraceabilityLink créé.
 }
 
 [HttpGet]//swagger endpoint: GET /api/TraceabilityLinks
-public async Task<ActionResult<IEnumerable<TraceabilityLink>>> GetTraceabilityLinks()
+public async Task<ActionResult<IEnumerable<TraceabilityLink>>> GetTraceabilityLinks()// Déclaration de la méthode GetTraceabilityLinks qui retourne un ActionResult contenant une liste d'objets TraceabilityLink.
 {
     return await _context.TraceabilityLinks.ToListAsync();
 }
 
-[HttpGet("product/{finishedProductId}")] // on retourne les donnée en ayant entrer un id d'un produit fini
+[HttpGet("product/{finishedProductId}")] // on retourne les données en ayant entrer un id d'un produit fini
 public async Task<ActionResult> GetByFinishedProduct(int finishedProductId)
 {
     var result = await _context.TraceabilityLinks
@@ -91,7 +95,7 @@ public async Task<ActionResult> GetByFinishedProduct(int finishedProductId)
     return Ok(result);
 }
 
-[HttpGet("rawmaterial/{rawMaterialId}")] // on retourne les donnée en ayant entrer un id d'une matière première
+[HttpGet("rawmaterial/{rawMaterialId}")] // on retourne les données en ayant entrer un id d'une matière première
 public async Task<ActionResult> GetByRawMaterial(int rawMaterialId)
 {
     var result = await _context.TraceabilityLinks
